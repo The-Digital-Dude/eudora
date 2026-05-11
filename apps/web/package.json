@@ -1,0 +1,28 @@
+{
+  "name": "@guidora/web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "pnpm --filter @guidora/contracts build && pnpm --filter @guidora/ui build && next build",
+    "start": "next start --port 3000",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "echo \"No web tests yet\"",
+    "test:unit": "echo \"No web unit tests yet\"",
+    "test:e2e": "echo \"No web e2e tests yet\""
+  },
+  "dependencies": {
+    "@guidora/contracts": "workspace:*",
+    "@guidora/ui": "workspace:*",
+    "next": "^15.3.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.7",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.1.7"
+  }
+}
