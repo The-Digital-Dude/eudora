@@ -12,12 +12,14 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "echo \"No contracts tests yet\"",
-    "test:unit": "echo \"No contracts unit tests yet\""
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "zod": "^3.25.28"
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "vitest": "4.1.6"
   }
 }

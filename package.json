@@ -1,31 +1,42 @@
 {
   "name": "guidora",
+  "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@11.1.2",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.1.2"
+  },
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint --concurrency=1",
     "typecheck": "turbo typecheck --concurrency=1",
     "test": "turbo test",
-    "test:unit": "turbo test:unit",
-    "test:integration": "turbo test:integration",
-    "test:e2e": "turbo test:e2e",
     "format": "prettier --write .",
-    "db:format": "pnpm --filter @guidora/db prisma:format",
-    "db:validate": "pnpm --filter @guidora/db prisma:validate",
     "db:generate": "pnpm --filter @guidora/db prisma:generate",
     "db:migrate:dev": "pnpm --filter @guidora/db prisma:migrate:dev",
     "db:migrate:deploy": "pnpm --filter @guidora/db prisma:migrate:deploy",
+    "db:studio": "pnpm --filter @guidora/db prisma:studio",
     "db:seed": "pnpm --filter @guidora/db prisma:seed"
   },
   "devDependencies": {
-    "@eslint/js": "^9.27.0",
-    "@types/node": "^22.15.18",
-    "eslint": "^9.27.0",
-    "prettier": "^3.5.3",
-    "turbo": "^2.5.3",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1"
+    "@eslint/js": "9.39.4",
+    "@types/node": "25.8.0",
+    "eslint": "9.39.4",
+    "prettier": "3.8.3",
+    "turbo": "2.9.14",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.59.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "@prisma/engines",
+      "@scarf/scarf",
+      "esbuild",
+      "prisma",
+      "sharp"
+    ]
   }
 }

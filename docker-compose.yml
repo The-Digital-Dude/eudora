@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18.4
+    container_name: guidora-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-guidora}
+      POSTGRES_USER: ${POSTGRES_USER:-guidora}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-guidora}
+    ports:
+      - "5433:5432"
+    volumes:
+      - guidora-postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-guidora} -d ${POSTGRES_DB:-guidora}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  guidora-postgres-data:

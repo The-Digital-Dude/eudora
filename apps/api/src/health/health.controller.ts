@@ -1,40 +1,18 @@
 import { Controller, Get } from "@nestjs/common";
-import type { ApiSuccess } from "@guidora/contracts";
+import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { HealthResponse } from "@guidora/contracts";
+import { Public } from "../auth/decorators";
+import { HealthService } from "./health.service";
 
-type HealthStatus = {
-  status: "ok";
-  service: "api";
-};
-
+@ApiTags("health")
 @Controller("health")
 export class HealthController {
+  constructor(private readonly healthService: HealthService) {}
+
+  @Public()
   @Get()
-  health(): ApiSuccess<HealthStatus> {
-    return {
-      data: {
-        status: "ok",
-        service: "api"
-      }
-    };
-  }
-
-  @Get("db")
-  database(): ApiSuccess<{ status: "not_configured"; checked: false }> {
-    return {
-      data: {
-        status: "not_configured",
-        checked: false
-      }
-    };
-  }
-
-  @Get("integrations")
-  integrations(): ApiSuccess<{ status: "not_configured"; providers: string[] }> {
-    return {
-      data: {
-        status: "not_configured",
-        providers: []
-      }
-    };
+  @ApiOkResponse({ description: "Current API and database health status" })
+  getHealth(): Promise<HealthResponse> {
+    return this.healthService.getHealth();
   }
 }

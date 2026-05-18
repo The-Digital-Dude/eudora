@@ -1,5 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "DATABASE_URL",
+    "NEXT_PUBLIC_API_URL",
+    "NODE_ENV",
+    "PORT"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -13,19 +19,7 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
-    },
-    "test:unit": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
-    },
-    "test:integration": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
-    "test:e2e": {
-      "dependsOn": ["build"],
-      "cache": false
+      "outputs": []
     },
     "dev": {
       "cache": false,

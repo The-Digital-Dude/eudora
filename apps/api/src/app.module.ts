@@ -1,37 +1,25 @@
 import { Module } from "@nestjs/common";
-import { AcademicModule } from "./modules/academic/academic.module";
-import { AssignmentsModule } from "./modules/assignments/assignments.module";
-import { AttendanceModule } from "./modules/attendance/attendance.module";
-import { AuditModule } from "./modules/audit/audit.module";
-import { BillingModule } from "./modules/billing/billing.module";
-import { ClassesModule } from "./modules/classes/classes.module";
-import { CommunicationModule } from "./modules/communication/communication.module";
-import { CrmModule } from "./modules/crm/crm.module";
-import { EnrolmentModule } from "./modules/enrolment/enrolment.module";
-import { IdentityModule } from "./modules/identity/identity.module";
-import { ImportsModule } from "./modules/imports/imports.module";
-import { MakeupsModule } from "./modules/makeups/makeups.module";
-import { PaymentsModule } from "./modules/payments/payments.module";
-import { ReportingModule } from "./modules/reporting/reporting.module";
+import { ConfigModule } from "@nestjs/config";
+import { DatabaseModule } from "@guidora/db";
+import { resolve } from "node:path";
+import { CommonModule } from "./common/common.module";
+import { validateEnv } from "./env";
+import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health/health.module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [resolve(__dirname, "../.env"), resolve(__dirname, "../../..", ".env")],
+      validate: validateEnv
+    }),
+    CommonModule,
+    DatabaseModule,
+    AuthModule,
     HealthModule,
-    IdentityModule,
-    AcademicModule,
-    AssignmentsModule,
-    AuditModule,
-    AttendanceModule,
-    BillingModule,
-    ClassesModule,
-    CommunicationModule,
-    CrmModule,
-    EnrolmentModule,
-    ImportsModule,
-    MakeupsModule,
-    PaymentsModule,
-    ReportingModule
+    UsersModule
   ]
 })
 export class AppModule {}

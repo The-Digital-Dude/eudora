@@ -1,16 +1,22 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary";
+const baseButtonClassName =
+  "inline-flex h-10 items-center justify-center gap-2 rounded-md border border-slate-900 bg-slate-950 px-4 text-sm font-medium text-white transition-colors hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 disabled:cursor-not-allowed disabled:opacity-50";
+
+export function buttonClassName(className?: string): string {
+  return className
+    ? `${baseButtonClassName} ${className}`
+    : baseButtonClassName;
+}
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: ReactNode;
 };
 
-export function Button({ className, variant = "primary", ...props }: ButtonProps) {
-  const baseClass =
-    "inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50";
-  const variantClass =
-    variant === "primary"
-      ? "bg-slate-950 text-white hover:bg-slate-800 focus-visible:outline-slate-950"
-      : "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50 focus-visible:outline-slate-500";
-
-  return <button className={[baseClass, variantClass, className].filter(Boolean).join(" ")} {...props} />;
+export function Button({ className, children, ...props }: ButtonProps) {
+  return (
+    <button className={buttonClassName(className)} {...props}>
+      {children}
+    </button>
+  );
 }

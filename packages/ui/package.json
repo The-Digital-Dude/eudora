@@ -9,19 +9,20 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./styles/tailwind.css": "./src/styles/tailwind.css"
+    "./styles.css": "./src/styles.css"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "echo \"No UI tests yet\"",
-    "test:unit": "echo \"No UI unit tests yet\""
+    "test": "vitest run --passWithNoTests"
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "19.2.6"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0"
+    "@types/react": "19.2.14",
+    "react": "19.2.6",
+    "vitest": "4.1.6"
   }
 }

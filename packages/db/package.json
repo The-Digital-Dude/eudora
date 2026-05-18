@@ -1,0 +1,44 @@
+{
+  "name": "@guidora/db",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./health": {
+      "types": "./dist/health.d.ts",
+      "default": "./dist/health.js"
+    }
+  },
+  "scripts": {
+    "build": "pnpm prisma:generate && tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "prisma:generate": "prisma generate",
+    "prisma:format": "prisma format",
+    "prisma:validate": "prisma validate",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "prisma db seed"
+  },
+  "dependencies": {
+    "@guidora/contracts": "workspace:*",
+    "@nestjs/common": "11.1.21",
+    "@nestjs/config": "4.0.4",
+    "@prisma/adapter-pg": "7.8.0",
+    "@prisma/client": "7.8.0",
+    "pg": "8.20.0"
+  },
+  "devDependencies": {
+    "@types/pg": "8.20.0",
+    "prisma": "7.8.0",
+    "tsx": "4.22.0",
+    "vitest": "4.1.6"
+  }
+}
