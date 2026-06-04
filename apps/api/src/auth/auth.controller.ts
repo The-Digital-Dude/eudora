@@ -13,11 +13,7 @@ import {
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
-import {
-  ACCESS_TOKEN_COOKIE,
-  CSRF_TOKEN_COOKIE,
-  REFRESH_TOKEN_COOKIE
-} from "./auth.constants.js";
+import { ACCESS_TOKEN_COOKIE, CSRF_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "./auth.constants.js";
 import { AuthService } from "./auth.service.js";
 import { type AuthenticatedUser, type AuthTokens } from "./auth.types.js";
 import { parseCookieHeader } from "./cookies.js";
@@ -75,12 +71,13 @@ export class AuthController {
     @Req() request: RequestLike,
     @Res({ passthrough: true }) response: ResponseLike
   ): Promise<PublicUserResponseDto> {
+    // console.log(body);
     const result = await this.authService.login({
       ...body,
       userAgent: headerToString(request.headers["user-agent"]),
       ipAddress: request.ip
     });
-
+    // console.log(result);
     setAuthCookies(response, result.tokens);
 
     return result.user;
@@ -102,7 +99,9 @@ export class AuthController {
     @Req() request: RequestLike,
     @Res({ passthrough: true }) response: ResponseLike
   ): Promise<PublicUserResponseDto> {
-    const refreshToken = parseCookieHeader(headerToString(request.headers.cookie))[REFRESH_TOKEN_COOKIE];
+    const refreshToken = parseCookieHeader(headerToString(request.headers.cookie))[
+      REFRESH_TOKEN_COOKIE
+    ];
 
     if (!refreshToken) {
       throw new UnauthorizedException("Refresh token cookie is required");
@@ -126,7 +125,9 @@ export class AuthController {
     @Req() request: RequestLike,
     @Res({ passthrough: true }) response: ResponseLike
   ): Promise<void> {
-    const refreshToken = parseCookieHeader(headerToString(request.headers.cookie))[REFRESH_TOKEN_COOKIE];
+    const refreshToken = parseCookieHeader(headerToString(request.headers.cookie))[
+      REFRESH_TOKEN_COOKIE
+    ];
 
     if (refreshToken) {
       await this.authService.logout({

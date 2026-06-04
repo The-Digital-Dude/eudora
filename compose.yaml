@@ -26,6 +26,7 @@ services:
     environment:
       DATABASE_URL: postgresql://eudora:eudora@postgres:5432/eudora?schema=public
       API_PORT: "3001"
+      CORS_ORIGIN: http://localhost:3000,http://localhost:3002
       NODE_ENV: development
       SEED_SUPERADMIN_EMAIL: admin@example.com
       SEED_SUPERADMIN_PASSWORD: AdminPass123!

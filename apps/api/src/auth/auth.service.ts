@@ -116,6 +116,7 @@ export class AuthService {
   }
 
   async login(input: LoginInput): Promise<LoginResult> {
+    console.log(input);
     const email = normalizeEmail(input.email);
     const user = await this.prisma.db.user.findUnique({
       where: { email }
@@ -407,7 +408,10 @@ export class AuthService {
       throw new UnauthorizedException("Authenticated user is unavailable");
     }
 
-    const passwordMatches = await this.passwordService.verify(input.currentPassword, user.passwordHash);
+    const passwordMatches = await this.passwordService.verify(
+      input.currentPassword,
+      user.passwordHash
+    );
 
     if (!passwordMatches) {
       throw new UnauthorizedException("Current password is incorrect");
@@ -456,7 +460,10 @@ export class AuthService {
     return tokens;
   }
 
-  private issueTokens(input: { userId: string; email: string }, tokenLifetimes: TokenLifetimes): AuthTokens {
+  private issueTokens(
+    input: { userId: string; email: string },
+    tokenLifetimes: TokenLifetimes
+  ): AuthTokens {
     return {
       accessToken: this.jwtService.sign(
         {
