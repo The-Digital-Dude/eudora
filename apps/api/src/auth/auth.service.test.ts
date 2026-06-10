@@ -2,37 +2,10 @@
 import { ConflictException, ForbiddenException, UnauthorizedException } from "@nestjs/common";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { SYSTEM_PERMISSIONS } from "./auth.constants.js";
 import { AuthService } from "./auth.service.js";
 import { JwtService } from "./jwt.service.js";
 import { PasswordService } from "./password.service.js";
-
-const permissions = [
-  "users.read",
-  "users.create",
-  "users.activate",
-  "users.reject",
-  "users.assignRoles",
-  "roles.read",
-  "roles.create",
-  "roles.update",
-  "roles.assignPermissions",
-  "audit.read",
-  "education.read",
-  "education.manageStructure",
-  "families.read",
-  "families.create",
-  "families.update",
-  "students.read",
-  "students.create",
-  "students.update",
-  "guardians.read",
-  "guardians.create",
-  "guardians.update",
-  "enrollments.read",
-  "enrollments.manage",
-  "familyPortal.read",
-  "familyPortal.updateContact"
-];
 
 function createPrismaMock() {
   return {
@@ -249,7 +222,7 @@ describe("AuthService", () => {
       email: "root@example.com",
       status: "active"
     });
-    expect(tx.permission.upsert).toHaveBeenCalledTimes(permissions.length);
+    expect(tx.permission.upsert).toHaveBeenCalledTimes(SYSTEM_PERMISSIONS.length);
     expect(tx.userRole.create).toHaveBeenCalledWith({
       data: {
         userId: "user_super",

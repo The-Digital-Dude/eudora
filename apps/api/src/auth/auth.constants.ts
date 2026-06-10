@@ -26,6 +26,11 @@ export const SYSTEM_PERMISSIONS = [
   "guardians.update",
   "enrollments.read",
   "enrollments.manage",
+  "assessments.read",
+  "assessments.manage",
+  "assessments.assign",
+  "assessments.attempt",
+  "assessments.mark",
   "familyPortal.read",
   "familyPortal.updateContact"
 ] as const;
