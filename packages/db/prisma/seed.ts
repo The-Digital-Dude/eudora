@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { config as loadEnv } from "dotenv";
 
 import { createPrismaClient } from "../src/client.js";
+import { seedAssessmentsDemo } from "./seed-assessments-demo.js";
 import { seedEducationDemo, type SeedEducationDemoPrisma } from "./seed-education-demo.js";
 import { seedSuperadmin } from "./seed-superadmin.js";
 
@@ -37,6 +38,11 @@ const systemPermissions = [
   "guardians.update",
   "enrollments.read",
   "enrollments.manage",
+  "assessments.read",
+  "assessments.manage",
+  "assessments.assign",
+  "assessments.attempt",
+  "assessments.mark",
   "familyPortal.read",
   "familyPortal.updateContact"
 ];
@@ -115,5 +121,6 @@ if (familyPortalPermissions.length > 0) {
 
 await seedSuperadmin(prisma);
 await seedEducationDemo(prisma as unknown as SeedEducationDemoPrisma);
+await seedAssessmentsDemo(prisma);
 
 await prisma.$disconnect();
