@@ -58,6 +58,14 @@ function getStatusCode(exception: unknown): number {
     return exception.getStatus();
   }
 
+  if (isPrismaKnownRequestError(exception)) {
+    return prismaStatusCode(exception.code);
+  }
+
+  if (isPrismaValidationError(exception)) {
+    return HttpStatus.BAD_REQUEST;
+  }
+
   return HttpStatus.INTERNAL_SERVER_ERROR;
 }
 
@@ -81,6 +89,17 @@ function normalizeException(
   errors?: ApiErrorEnvelope["errors"];
 } {
   if (!(exception instanceof HttpException)) {
+    if (isPrismaKnownRequestError(exception)) {
+      return normalizePrismaKnownRequestError(exception, fallbackCode);
+    }
+
+    if (isPrismaValidationError(exception)) {
+      return {
+        code: fallbackCode,
+        message: "Invalid database query input"
+      };
+    }
+
     return {
       code: fallbackCode,
       message: "Internal server error"
@@ -122,4 +141,98 @@ function normalizeException(
       : exception.message || "Request failed";
 
   return errors ? { code, message, errors } : { code, message };
+}
+
+type PrismaKnownRequestErrorLike = {
+  code: string;
+  meta?: Record<string, unknown>;
+  clientVersion?: string;
+  name?: string;
+};
+
+function isPrismaKnownRequestError(exception: unknown): exception is PrismaKnownRequestErrorLike {
+  return (
+    isRecord(exception) &&
+    typeof exception.code === "string" &&
+    /^P\d{4}$/.test(exception.code) &&
+    (typeof exception.clientVersion === "string" || exception.name === "PrismaClientKnownRequestError")
+  );
+}
+
+function isPrismaValidationError(exception: unknown): boolean {
+  return isRecord(exception) && exception.name === "PrismaClientValidationError";
+}
+
+function prismaStatusCode(code: string): number {
+  switch (code) {
+    case "P2002":
+      return HttpStatus.CONFLICT;
+    case "P2025":
+      return HttpStatus.NOT_FOUND;
+    case "P2003":
+    case "P2014":
+      return HttpStatus.BAD_REQUEST;
+    default:
+      return HttpStatus.INTERNAL_SERVER_ERROR;
+  }
+}
+
+function normalizePrismaKnownRequestError(
+  exception: PrismaKnownRequestErrorLike,
+  fallbackCode: string
+): {
+  code: string;
+  message: string;
+  errors?: ApiErrorEnvelope["errors"];
+} {
+  switch (exception.code) {
+    case "P2002": {
+      const fields = normalizePrismaTarget(exception.meta?.target);
+      return {
+        code: fallbackCode,
+        message: fields.length > 0 ? `A record with this ${fields.join(", ")} already exists` : "Record already exists",
+        ...(fields.length > 0
+          ? {
+              errors: fields.map((field) => ({
+                code: fallbackCode,
+                field,
+                message: `${field} must be unique`
+              }))
+            }
+          : {})
+      };
+    }
+    case "P2025":
+      return {
+        code: fallbackCode,
+        message: "Record not found"
+      };
+    case "P2003":
+      return {
+        code: fallbackCode,
+        message: "Referenced record does not exist"
+      };
+    case "P2014":
+      return {
+        code: fallbackCode,
+        message: "The requested change violates a required relationship"
+      };
+    default:
+      return {
+        code: fallbackCode,
+        message: "Database request failed"
+      };
+  }
+}
+
+function normalizePrismaTarget(target: unknown): string[] {
+  if (Array.isArray(target)) {
+    return target.map((value) => String(value));
+  }
+
+  if (typeof target === "string") {
+    return [target];
+  }
+
+  return [];
 }
