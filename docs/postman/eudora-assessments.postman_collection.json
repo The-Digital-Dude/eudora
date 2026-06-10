@@ -1,0 +1,1458 @@
+{
+  "info": {
+    "_postman_id": "7d4a8e7f-eudora-assessments",
+    "name": "Eudora Assessments API",
+    "description": "Backend assessment APIs. Login first; Postman must retain cookies. Unsafe methods send x-csrf-token from the login response cookie.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001"
+    },
+    {
+      "key": "loginEmail",
+      "value": "admin@example.com"
+    },
+    {
+      "key": "loginPassword",
+      "value": "AdminPass123!"
+    },
+    {
+      "key": "csrfToken",
+      "value": ""
+    },
+    {
+      "key": "assessmentTypeId",
+      "value": ""
+    },
+    {
+      "key": "subjectId",
+      "value": ""
+    },
+    {
+      "key": "levelId",
+      "value": ""
+    },
+    {
+      "key": "termId",
+      "value": ""
+    },
+    {
+      "key": "assessmentId",
+      "value": ""
+    },
+    {
+      "key": "sectionId",
+      "value": ""
+    },
+    {
+      "key": "questionId",
+      "value": ""
+    },
+    {
+      "key": "optionId",
+      "value": ""
+    },
+    {
+      "key": "assignmentId",
+      "value": ""
+    },
+    {
+      "key": "studentId",
+      "value": ""
+    },
+    {
+      "key": "classId",
+      "value": ""
+    },
+    {
+      "key": "attemptId",
+      "value": ""
+    },
+    {
+      "key": "responseId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const csrf = pm.cookies.get('eudora_csrf_token');",
+                  "if (csrf) pm.collectionVariables.set('csrfToken', csrf);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{loginEmail}}\",\n  \"password\": \"{{loginPassword}}\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Setup Lookups",
+      "item": [
+        {
+          "name": "List Assessment Types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/assessment-types?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assessment-types"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "math",
+                  "disabled": true,
+                  "description": "Search code/name"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "disabled": true,
+                  "description": "active | inactive | archived"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Assessment Type",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.response.json()?.data?.id;",
+                  "if (id) pm.collectionVariables.set('assessmentTypeId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"weekly\",\n  \"name\": \"Weekly Assessment\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assessment-types"
+          }
+        },
+        {
+          "name": "Update Assessment Type",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Weekly Assessment\",\n  \"status\": \"active\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assessment-types/{{assessmentTypeId}}"
+          }
+        },
+        {
+          "name": "List Subjects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/subjects?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "subjects"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "math",
+                  "disabled": true,
+                  "description": "Search code/name"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "disabled": true,
+                  "description": "active | inactive | archived"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Subject",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.response.json()?.data?.id;",
+                  "if (id) pm.collectionVariables.set('subjectId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"maths\",\n  \"name\": \"Maths\"\n}"
+            },
+            "url": "{{baseUrl}}/api/subjects"
+          }
+        },
+        {
+          "name": "Update Subject",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maths\",\n  \"status\": \"active\"\n}"
+            },
+            "url": "{{baseUrl}}/api/subjects/{{subjectId}}"
+          }
+        },
+        {
+          "name": "List Assessment Levels",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/assessment-levels?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assessment-levels"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "math",
+                  "disabled": true,
+                  "description": "Search code/name"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "disabled": true,
+                  "description": "active | inactive | archived"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Assessment Level",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.response.json()?.data?.id;",
+                  "if (id) pm.collectionVariables.set('levelId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"level-5\",\n  \"name\": \"Level 5\",\n  \"sortOrder\": 5\n}"
+            },
+            "url": "{{baseUrl}}/api/assessment-levels"
+          }
+        },
+        {
+          "name": "Update Assessment Level",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Level 5\",\n  \"sortOrder\": 5,\n  \"status\": \"active\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assessment-levels/{{levelId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Assessment Setup",
+      "item": [
+        {
+          "name": "List Assessments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/assessments?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assessments"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "fractions",
+                  "disabled": true,
+                  "description": "Search title"
+                },
+                {
+                  "key": "assessmentTypeId",
+                  "value": "{{assessmentTypeId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "subjectId",
+                  "value": "{{subjectId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "levelId",
+                  "value": "{{levelId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "termId",
+                  "value": "{{termId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "weekNumber",
+                  "value": "4",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "published",
+                  "disabled": true,
+                  "description": "draft | published | archived"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Assessment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/assessments/{{assessmentId}}"
+          }
+        },
+        {
+          "name": "Create Assessment",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json()?.data;",
+                  "if (data?.id) pm.collectionVariables.set('assessmentId', data.id);",
+                  "if (data?.sections?.[0]?.id) pm.collectionVariables.set('sectionId', data.sections[0].id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assessmentTypeId\": \"{{assessmentTypeId}}\",\n  \"subjectId\": \"{{subjectId}}\",\n  \"levelId\": \"{{levelId}}\",\n  \"termId\": \"{{termId}}\",\n  \"weekNumber\": 4,\n  \"title\": \"Week 4 Level 5 Maths Fractions Assessment\",\n  \"totalMarks\": 20,\n  \"estimatedDurationMinutes\": 45,\n  \"sections\": [\n    { \"title\": \"Number\", \"sortOrder\": 1 },\n    { \"title\": \"Reasoning\", \"sortOrder\": 2 }\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/api/assessments"
+          }
+        },
+        {
+          "name": "Update Assessment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Week 4 Level 5 Maths Fractions Assessment\",\n  \"totalMarks\": 20,\n  \"estimatedDurationMinutes\": 45\n}"
+            },
+            "url": "{{baseUrl}}/api/assessments/{{assessmentId}}"
+          }
+        },
+        {
+          "name": "Publish Assessment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/assessments/{{assessmentId}}/publish"
+          }
+        },
+        {
+          "name": "Archive Assessment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/assessments/{{assessmentId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "List Questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/questions?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "questions"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "fraction",
+                  "disabled": true,
+                  "description": "Search prompt/correct answer"
+                },
+                {
+                  "key": "subjectId",
+                  "value": "{{subjectId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "levelId",
+                  "value": "{{levelId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "questionType",
+                  "value": "mcq",
+                  "disabled": true,
+                  "description": "mcq | short_answer | numeric | written"
+                },
+                {
+                  "key": "difficulty",
+                  "value": "medium",
+                  "disabled": true,
+                  "description": "easy | medium | hard | extension"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "disabled": true,
+                  "description": "draft | active | archived"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Question",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/questions/{{questionId}}"
+          }
+        },
+        {
+          "name": "Create MCQ Question",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json()?.data;",
+                  "if (data?.id) pm.collectionVariables.set('questionId', data.id);",
+                  "if (data?.options?.[0]?.id) pm.collectionVariables.set('optionId', data.options[0].id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subjectId\": \"{{subjectId}}\",\n  \"levelId\": \"{{levelId}}\",\n  \"questionType\": \"mcq\",\n  \"prompt\": \"Which fraction is equivalent to 1/2?\",\n  \"correctAnswer\": null,\n  \"difficulty\": \"medium\",\n  \"status\": \"active\",\n  \"options\": [\n    { \"optionLabel\": \"A\", \"optionText\": \"2/4\", \"isCorrect\": true },\n    { \"optionLabel\": \"B\", \"optionText\": \"1/3\", \"isCorrect\": false },\n    { \"optionLabel\": \"C\", \"optionText\": \"3/5\", \"isCorrect\": false },\n    { \"optionLabel\": \"D\", \"optionText\": \"4/7\", \"isCorrect\": false }\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/api/questions"
+          }
+        },
+        {
+          "name": "Update Question",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"Which fraction is equivalent to one half?\",\n  \"difficulty\": \"medium\",\n  \"status\": \"active\"\n}"
+            },
+            "url": "{{baseUrl}}/api/questions/{{questionId}}"
+          }
+        },
+        {
+          "name": "Archive Question",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/questions/{{questionId}}"
+          }
+        },
+        {
+          "name": "Add Question To Assessment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": \"{{questionId}}\",\n  \"questionNumber\": 1,\n  \"marksAvailable\": 2,\n  \"sectionId\": \"{{sectionId}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assessments/{{assessmentId}}/questions"
+          }
+        },
+        {
+          "name": "Update Assessment Question Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionNumber\": 1,\n  \"marksAvailable\": 2,\n  \"sectionId\": \"{{sectionId}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assessments/{{assessmentId}}/questions/{{questionId}}"
+          }
+        },
+        {
+          "name": "Remove Question From Assessment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/assessments/{{assessmentId}}/questions/{{questionId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Assignments",
+      "item": [
+        {
+          "name": "List Assignments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/assignments?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assignments"
+              ],
+              "query": [
+                {
+                  "key": "assessmentId",
+                  "value": "{{assessmentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "studentId",
+                  "value": "{{studentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "classId",
+                  "value": "{{classId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "assigned",
+                  "disabled": true,
+                  "description": "assigned | started | submitted | overdue | exempted | cancelled"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Assignment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/assignments/{{assignmentId}}"
+          }
+        },
+        {
+          "name": "Create Student Assignment",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.response.json()?.data?.id;",
+                  "if (id) pm.collectionVariables.set('assignmentId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assessmentId\": \"{{assessmentId}}\",\n  \"studentId\": \"{{studentId}}\",\n  \"classId\": null,\n  \"lessonId\": null,\n  \"opensAt\": \"2026-06-10T09:00:00.000Z\",\n  \"dueAt\": \"2026-06-17T23:59:00.000Z\",\n  \"status\": \"assigned\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assignments"
+          }
+        },
+        {
+          "name": "Create Class Assignment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assessmentId\": \"{{assessmentId}}\",\n  \"studentId\": null,\n  \"classId\": \"{{classId}}\",\n  \"lessonId\": null,\n  \"opensAt\": \"2026-06-10T09:00:00.000Z\",\n  \"dueAt\": \"2026-06-17T23:59:00.000Z\",\n  \"status\": \"assigned\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assignments"
+          }
+        },
+        {
+          "name": "Update Assignment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"opensAt\": \"2026-06-10T09:00:00.000Z\",\n  \"dueAt\": \"2026-06-20T23:59:00.000Z\",\n  \"status\": \"assigned\"\n}"
+            },
+            "url": "{{baseUrl}}/api/assignments/{{assignmentId}}"
+          }
+        },
+        {
+          "name": "Cancel Assignment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/assignments/{{assignmentId}}"
+          }
+        },
+        {
+          "name": "Remind Assignment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/assignments/{{assignmentId}}/remind"
+          }
+        },
+        {
+          "name": "Student Assignments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{studentId}}/assignments?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{studentId}}",
+                "assignments"
+              ],
+              "query": [
+                {
+                  "key": "assessmentId",
+                  "value": "{{assessmentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "classId",
+                  "value": "{{classId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "assigned",
+                  "disabled": true,
+                  "description": "assigned | started | submitted | overdue | exempted | cancelled"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Class Assignments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/classes/{{classId}}/assignments?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "classes",
+                "{{classId}}",
+                "assignments"
+              ],
+              "query": [
+                {
+                  "key": "assessmentId",
+                  "value": "{{assessmentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "studentId",
+                  "value": "{{studentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "assigned",
+                  "disabled": true,
+                  "description": "assigned | started | submitted | overdue | exempted | cancelled"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attempts",
+      "item": [
+        {
+          "name": "List Attempts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/attempts?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attempts"
+              ],
+              "query": [
+                {
+                  "key": "assessmentAssignmentId",
+                  "value": "{{assignmentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "studentId",
+                  "value": "{{studentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "resultStatus",
+                  "value": "marked",
+                  "disabled": true,
+                  "description": "in_progress | submitted | marked | needs_review"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Attempt",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/attempts/{{attemptId}}"
+          }
+        },
+        {
+          "name": "Start Attempt",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.response.json()?.data?.id;",
+                  "if (id) pm.collectionVariables.set('attemptId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assessmentAssignmentId\": \"{{assignmentId}}\",\n  \"studentId\": \"{{studentId}}\",\n  \"rawImportPayload\": null\n}"
+            },
+            "url": "{{baseUrl}}/api/attempts"
+          }
+        },
+        {
+          "name": "Update Attempt",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"timeSpentSeconds\": 1800,\n  \"resultStatus\": \"in_progress\",\n  \"teacherComment\": null,\n  \"parentComment\": null\n}"
+            },
+            "url": "{{baseUrl}}/api/attempts/{{attemptId}}"
+          }
+        },
+        {
+          "name": "Submit Attempt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/attempts/{{attemptId}}/submit"
+          }
+        },
+        {
+          "name": "Mark Attempt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mode\": \"auto\",\n  \"teacherComment\": \"Auto-marked MCQ responses.\",\n  \"parentComment\": \"Completed and marked.\"\n}"
+            },
+            "url": "{{baseUrl}}/api/attempts/{{attemptId}}/mark"
+          }
+        },
+        {
+          "name": "Student Attempts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{studentId}}/attempts?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{studentId}}",
+                "attempts"
+              ],
+              "query": [
+                {
+                  "key": "assessmentAssignmentId",
+                  "value": "{{assignmentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "resultStatus",
+                  "value": "marked",
+                  "disabled": true,
+                  "description": "in_progress | submitted | marked | needs_review"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Assignment Attempts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/assignments/{{assignmentId}}/attempts?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assignments",
+                "{{assignmentId}}",
+                "attempts"
+              ],
+              "query": [
+                {
+                  "key": "studentId",
+                  "value": "{{studentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "resultStatus",
+                  "value": "marked",
+                  "disabled": true,
+                  "description": "in_progress | submitted | marked | needs_review"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student Responses",
+      "item": [
+        {
+          "name": "List Responses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/responses?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "responses"
+              ],
+              "query": [
+                {
+                  "key": "assessmentAttemptId",
+                  "value": "{{attemptId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "questionId",
+                  "value": "{{questionId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Response",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/responses/{{responseId}}"
+          }
+        },
+        {
+          "name": "Save Response",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const id = pm.response.json()?.data?.id;",
+                  "if (id) pm.collectionVariables.set('responseId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assessmentAttemptId\": \"{{attemptId}}\",\n  \"questionId\": \"{{questionId}}\",\n  \"selectedOptionId\": \"{{optionId}}\",\n  \"responseText\": null,\n  \"timeSpentSeconds\": 90\n}"
+            },
+            "url": "{{baseUrl}}/api/responses"
+          }
+        },
+        {
+          "name": "Update Response",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"selectedOptionId\": \"{{optionId}}\",\n  \"responseText\": null,\n  \"timeSpentSeconds\": 120,\n  \"feedback\": null\n}"
+            },
+            "url": "{{baseUrl}}/api/responses/{{responseId}}"
+          }
+        },
+        {
+          "name": "Mark Response",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-csrf-token",
+                "value": "{{csrfToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isCorrect\": true,\n  \"marksAwarded\": 2,\n  \"feedback\": \"Correct.\"\n}"
+            },
+            "url": "{{baseUrl}}/api/responses/{{responseId}}/mark"
+          }
+        },
+        {
+          "name": "Attempt Responses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/attempts/{{attemptId}}/responses?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attempts",
+                "{{attemptId}}",
+                "responses"
+              ],
+              "query": [
+                {
+                  "key": "questionId",
+                  "value": "{{questionId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Question Responses Analytics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/questions/{{questionId}}/responses?page=1&pageSize=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "{{questionId}}",
+                "responses"
+              ],
+              "query": [
+                {
+                  "key": "assessmentAttemptId",
+                  "value": "{{attemptId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "25",
+                  "description": "Items per page, max 100"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
