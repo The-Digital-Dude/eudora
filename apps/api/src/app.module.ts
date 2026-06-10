@@ -5,6 +5,7 @@ import { Module } from "@nestjs/common";
 import { APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
 
 import { AuthModule } from "./auth/auth.module.js";
+import { AssessmentsModule } from "./assessments/assessments.module.js";
 import { ApiExceptionFilter } from "./common/http/api-exception.filter.js";
 import { ApiEnvelopeInterceptor } from "./common/http/api-envelope.interceptor.js";
 import { EducationStructureModule } from "./education-structure/education-structure.module.js";
@@ -22,6 +23,7 @@ import { UsersModule } from "./users/users.module.js";
     RbacModule,
     AuthModule,
     UsersModule,
+    AssessmentsModule,
     EducationStructureModule,
     EnrollmentsModule,
     FamiliesModule,
