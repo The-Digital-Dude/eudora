@@ -59,3 +59,63 @@ export const EnrollmentStatus = {
 } as const
 
 export type EnrollmentStatus = (typeof EnrollmentStatus)[keyof typeof EnrollmentStatus]
+
+
+export const AssessmentStatus = {
+  draft: 'draft',
+  published: 'published',
+  archived: 'archived'
+} as const
+
+export type AssessmentStatus = (typeof AssessmentStatus)[keyof typeof AssessmentStatus]
+
+
+export const QuestionType = {
+  mcq: 'mcq',
+  short_answer: 'short_answer',
+  numeric: 'numeric',
+  written: 'written'
+} as const
+
+export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
+
+
+export const QuestionDifficulty = {
+  easy: 'easy',
+  medium: 'medium',
+  hard: 'hard',
+  extension: 'extension'
+} as const
+
+export type QuestionDifficulty = (typeof QuestionDifficulty)[keyof typeof QuestionDifficulty]
+
+
+export const QuestionStatus = {
+  draft: 'draft',
+  active: 'active',
+  archived: 'archived'
+} as const
+
+export type QuestionStatus = (typeof QuestionStatus)[keyof typeof QuestionStatus]
+
+
+export const AssessmentAssignmentStatus = {
+  assigned: 'assigned',
+  started: 'started',
+  submitted: 'submitted',
+  overdue: 'overdue',
+  exempted: 'exempted',
+  cancelled: 'cancelled'
+} as const
+
+export type AssessmentAssignmentStatus = (typeof AssessmentAssignmentStatus)[keyof typeof AssessmentAssignmentStatus]
+
+
+export const AssessmentAttemptResultStatus = {
+  in_progress: 'in_progress',
+  submitted: 'submitted',
+  marked: 'marked',
+  needs_review: 'needs_review'
+} as const
+
+export type AssessmentAttemptResultStatus = (typeof AssessmentAttemptResultStatus)[keyof typeof AssessmentAttemptResultStatus]

@@ -269,6 +269,7 @@ export type ClassSectionWhereInput = {
   academicYear?: Prisma.XOR<Prisma.AcademicYearScalarRelationFilter, Prisma.AcademicYearWhereInput>
   term?: Prisma.XOR<Prisma.TermNullableScalarRelationFilter, Prisma.TermWhereInput> | null
   primaryPlacements?: Prisma.StudentPrimaryPlacementListRelationFilter
+  assessmentAssignments?: Prisma.AssessmentAssignmentListRelationFilter
 }
 
 export type ClassSectionOrderByWithRelationInput = {
@@ -288,6 +289,7 @@ export type ClassSectionOrderByWithRelationInput = {
   academicYear?: Prisma.AcademicYearOrderByWithRelationInput
   term?: Prisma.TermOrderByWithRelationInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementOrderByRelationAggregateInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentOrderByRelationAggregateInput
 }
 
 export type ClassSectionWhereUniqueInput = Prisma.AtLeast<{
@@ -311,6 +313,7 @@ export type ClassSectionWhereUniqueInput = Prisma.AtLeast<{
   academicYear?: Prisma.XOR<Prisma.AcademicYearScalarRelationFilter, Prisma.AcademicYearWhereInput>
   term?: Prisma.XOR<Prisma.TermNullableScalarRelationFilter, Prisma.TermWhereInput> | null
   primaryPlacements?: Prisma.StudentPrimaryPlacementListRelationFilter
+  assessmentAssignments?: Prisma.AssessmentAssignmentListRelationFilter
 }, "id" | "campusId_academicYearId_code">
 
 export type ClassSectionOrderByWithAggregationInput = {
@@ -362,6 +365,7 @@ export type ClassSectionCreateInput = {
   academicYear: Prisma.AcademicYearCreateNestedOneWithoutClassSectionsInput
   term?: Prisma.TermCreateNestedOneWithoutClassSectionsInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionUncheckedCreateInput = {
@@ -377,6 +381,7 @@ export type ClassSectionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionUpdateInput = {
@@ -392,6 +397,7 @@ export type ClassSectionUpdateInput = {
   academicYear?: Prisma.AcademicYearUpdateOneRequiredWithoutClassSectionsNestedInput
   term?: Prisma.TermUpdateOneWithoutClassSectionsNestedInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateInput = {
@@ -407,6 +413,7 @@ export type ClassSectionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionCreateManyInput = {
@@ -516,6 +523,11 @@ export type ClassSectionSumOrderByAggregateInput = {
 export type ClassSectionScalarRelationFilter = {
   is?: Prisma.ClassSectionWhereInput
   isNot?: Prisma.ClassSectionWhereInput
+}
+
+export type ClassSectionNullableScalarRelationFilter = {
+  is?: Prisma.ClassSectionWhereInput | null
+  isNot?: Prisma.ClassSectionWhereInput | null
 }
 
 export type ClassSectionCreateNestedManyWithoutCampusInput = {
@@ -708,6 +720,22 @@ export type ClassSectionUpdateOneRequiredWithoutPrimaryPlacementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClassSectionUpdateToOneWithWhereWithoutPrimaryPlacementsInput, Prisma.ClassSectionUpdateWithoutPrimaryPlacementsInput>, Prisma.ClassSectionUncheckedUpdateWithoutPrimaryPlacementsInput>
 }
 
+export type ClassSectionCreateNestedOneWithoutAssessmentAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.ClassSectionCreateWithoutAssessmentAssignmentsInput, Prisma.ClassSectionUncheckedCreateWithoutAssessmentAssignmentsInput>
+  connectOrCreate?: Prisma.ClassSectionCreateOrConnectWithoutAssessmentAssignmentsInput
+  connect?: Prisma.ClassSectionWhereUniqueInput
+}
+
+export type ClassSectionUpdateOneWithoutAssessmentAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClassSectionCreateWithoutAssessmentAssignmentsInput, Prisma.ClassSectionUncheckedCreateWithoutAssessmentAssignmentsInput>
+  connectOrCreate?: Prisma.ClassSectionCreateOrConnectWithoutAssessmentAssignmentsInput
+  upsert?: Prisma.ClassSectionUpsertWithoutAssessmentAssignmentsInput
+  disconnect?: Prisma.ClassSectionWhereInput | boolean
+  delete?: Prisma.ClassSectionWhereInput | boolean
+  connect?: Prisma.ClassSectionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClassSectionUpdateToOneWithWhereWithoutAssessmentAssignmentsInput, Prisma.ClassSectionUpdateWithoutAssessmentAssignmentsInput>, Prisma.ClassSectionUncheckedUpdateWithoutAssessmentAssignmentsInput>
+}
+
 export type ClassSectionCreateWithoutCampusInput = {
   id?: string
   code: string
@@ -720,6 +748,7 @@ export type ClassSectionCreateWithoutCampusInput = {
   academicYear: Prisma.AcademicYearCreateNestedOneWithoutClassSectionsInput
   term?: Prisma.TermCreateNestedOneWithoutClassSectionsInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionUncheckedCreateWithoutCampusInput = {
@@ -734,6 +763,7 @@ export type ClassSectionUncheckedCreateWithoutCampusInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionCreateOrConnectWithoutCampusInput = {
@@ -791,6 +821,7 @@ export type ClassSectionCreateWithoutProgramInput = {
   academicYear: Prisma.AcademicYearCreateNestedOneWithoutClassSectionsInput
   term?: Prisma.TermCreateNestedOneWithoutClassSectionsInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionUncheckedCreateWithoutProgramInput = {
@@ -805,6 +836,7 @@ export type ClassSectionUncheckedCreateWithoutProgramInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionCreateOrConnectWithoutProgramInput = {
@@ -845,6 +877,7 @@ export type ClassSectionCreateWithoutAcademicYearInput = {
   program: Prisma.ProgramCreateNestedOneWithoutClassSectionsInput
   term?: Prisma.TermCreateNestedOneWithoutClassSectionsInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionUncheckedCreateWithoutAcademicYearInput = {
@@ -859,6 +892,7 @@ export type ClassSectionUncheckedCreateWithoutAcademicYearInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionCreateOrConnectWithoutAcademicYearInput = {
@@ -899,6 +933,7 @@ export type ClassSectionCreateWithoutTermInput = {
   program: Prisma.ProgramCreateNestedOneWithoutClassSectionsInput
   academicYear: Prisma.AcademicYearCreateNestedOneWithoutClassSectionsInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionUncheckedCreateWithoutTermInput = {
@@ -913,6 +948,7 @@ export type ClassSectionUncheckedCreateWithoutTermInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedCreateNestedManyWithoutClassSectionInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionCreateOrConnectWithoutTermInput = {
@@ -953,6 +989,7 @@ export type ClassSectionCreateWithoutPrimaryPlacementsInput = {
   program: Prisma.ProgramCreateNestedOneWithoutClassSectionsInput
   academicYear: Prisma.AcademicYearCreateNestedOneWithoutClassSectionsInput
   term?: Prisma.TermCreateNestedOneWithoutClassSectionsInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionUncheckedCreateWithoutPrimaryPlacementsInput = {
@@ -967,6 +1004,7 @@ export type ClassSectionUncheckedCreateWithoutPrimaryPlacementsInput = {
   status?: $Enums.EducationRecordStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutClassSectionInput
 }
 
 export type ClassSectionCreateOrConnectWithoutPrimaryPlacementsInput = {
@@ -997,6 +1035,7 @@ export type ClassSectionUpdateWithoutPrimaryPlacementsInput = {
   program?: Prisma.ProgramUpdateOneRequiredWithoutClassSectionsNestedInput
   academicYear?: Prisma.AcademicYearUpdateOneRequiredWithoutClassSectionsNestedInput
   term?: Prisma.TermUpdateOneWithoutClassSectionsNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateWithoutPrimaryPlacementsInput = {
@@ -1011,6 +1050,83 @@ export type ClassSectionUncheckedUpdateWithoutPrimaryPlacementsInput = {
   status?: Prisma.EnumEducationRecordStatusFieldUpdateOperationsInput | $Enums.EducationRecordStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutClassSectionNestedInput
+}
+
+export type ClassSectionCreateWithoutAssessmentAssignmentsInput = {
+  id?: string
+  code: string
+  name: string
+  capacity?: number | null
+  status?: $Enums.EducationRecordStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  campus: Prisma.CampusCreateNestedOneWithoutClassSectionsInput
+  program: Prisma.ProgramCreateNestedOneWithoutClassSectionsInput
+  academicYear: Prisma.AcademicYearCreateNestedOneWithoutClassSectionsInput
+  term?: Prisma.TermCreateNestedOneWithoutClassSectionsInput
+  primaryPlacements?: Prisma.StudentPrimaryPlacementCreateNestedManyWithoutClassSectionInput
+}
+
+export type ClassSectionUncheckedCreateWithoutAssessmentAssignmentsInput = {
+  id?: string
+  campusId: string
+  programId: string
+  academicYearId: string
+  termId?: string | null
+  code: string
+  name: string
+  capacity?: number | null
+  status?: $Enums.EducationRecordStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedCreateNestedManyWithoutClassSectionInput
+}
+
+export type ClassSectionCreateOrConnectWithoutAssessmentAssignmentsInput = {
+  where: Prisma.ClassSectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClassSectionCreateWithoutAssessmentAssignmentsInput, Prisma.ClassSectionUncheckedCreateWithoutAssessmentAssignmentsInput>
+}
+
+export type ClassSectionUpsertWithoutAssessmentAssignmentsInput = {
+  update: Prisma.XOR<Prisma.ClassSectionUpdateWithoutAssessmentAssignmentsInput, Prisma.ClassSectionUncheckedUpdateWithoutAssessmentAssignmentsInput>
+  create: Prisma.XOR<Prisma.ClassSectionCreateWithoutAssessmentAssignmentsInput, Prisma.ClassSectionUncheckedCreateWithoutAssessmentAssignmentsInput>
+  where?: Prisma.ClassSectionWhereInput
+}
+
+export type ClassSectionUpdateToOneWithWhereWithoutAssessmentAssignmentsInput = {
+  where?: Prisma.ClassSectionWhereInput
+  data: Prisma.XOR<Prisma.ClassSectionUpdateWithoutAssessmentAssignmentsInput, Prisma.ClassSectionUncheckedUpdateWithoutAssessmentAssignmentsInput>
+}
+
+export type ClassSectionUpdateWithoutAssessmentAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumEducationRecordStatusFieldUpdateOperationsInput | $Enums.EducationRecordStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campus?: Prisma.CampusUpdateOneRequiredWithoutClassSectionsNestedInput
+  program?: Prisma.ProgramUpdateOneRequiredWithoutClassSectionsNestedInput
+  academicYear?: Prisma.AcademicYearUpdateOneRequiredWithoutClassSectionsNestedInput
+  term?: Prisma.TermUpdateOneWithoutClassSectionsNestedInput
+  primaryPlacements?: Prisma.StudentPrimaryPlacementUpdateManyWithoutClassSectionNestedInput
+}
+
+export type ClassSectionUncheckedUpdateWithoutAssessmentAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  campusId?: Prisma.StringFieldUpdateOperationsInput | string
+  programId?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYearId?: Prisma.StringFieldUpdateOperationsInput | string
+  termId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  capacity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumEducationRecordStatusFieldUpdateOperationsInput | $Enums.EducationRecordStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionCreateManyCampusInput = {
@@ -1038,6 +1154,7 @@ export type ClassSectionUpdateWithoutCampusInput = {
   academicYear?: Prisma.AcademicYearUpdateOneRequiredWithoutClassSectionsNestedInput
   term?: Prisma.TermUpdateOneWithoutClassSectionsNestedInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateWithoutCampusInput = {
@@ -1052,6 +1169,7 @@ export type ClassSectionUncheckedUpdateWithoutCampusInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateManyWithoutCampusInput = {
@@ -1092,6 +1210,7 @@ export type ClassSectionUpdateWithoutProgramInput = {
   academicYear?: Prisma.AcademicYearUpdateOneRequiredWithoutClassSectionsNestedInput
   term?: Prisma.TermUpdateOneWithoutClassSectionsNestedInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateWithoutProgramInput = {
@@ -1106,6 +1225,7 @@ export type ClassSectionUncheckedUpdateWithoutProgramInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateManyWithoutProgramInput = {
@@ -1146,6 +1266,7 @@ export type ClassSectionUpdateWithoutAcademicYearInput = {
   program?: Prisma.ProgramUpdateOneRequiredWithoutClassSectionsNestedInput
   term?: Prisma.TermUpdateOneWithoutClassSectionsNestedInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateWithoutAcademicYearInput = {
@@ -1160,6 +1281,7 @@ export type ClassSectionUncheckedUpdateWithoutAcademicYearInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateManyWithoutAcademicYearInput = {
@@ -1200,6 +1322,7 @@ export type ClassSectionUpdateWithoutTermInput = {
   program?: Prisma.ProgramUpdateOneRequiredWithoutClassSectionsNestedInput
   academicYear?: Prisma.AcademicYearUpdateOneRequiredWithoutClassSectionsNestedInput
   primaryPlacements?: Prisma.StudentPrimaryPlacementUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateWithoutTermInput = {
@@ -1214,6 +1337,7 @@ export type ClassSectionUncheckedUpdateWithoutTermInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   primaryPlacements?: Prisma.StudentPrimaryPlacementUncheckedUpdateManyWithoutClassSectionNestedInput
+  assessmentAssignments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutClassSectionNestedInput
 }
 
 export type ClassSectionUncheckedUpdateManyWithoutTermInput = {
@@ -1236,10 +1360,12 @@ export type ClassSectionUncheckedUpdateManyWithoutTermInput = {
 
 export type ClassSectionCountOutputType = {
   primaryPlacements: number
+  assessmentAssignments: number
 }
 
 export type ClassSectionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   primaryPlacements?: boolean | ClassSectionCountOutputTypeCountPrimaryPlacementsArgs
+  assessmentAssignments?: boolean | ClassSectionCountOutputTypeCountAssessmentAssignmentsArgs
 }
 
 /**
@@ -1257,6 +1383,13 @@ export type ClassSectionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
  */
 export type ClassSectionCountOutputTypeCountPrimaryPlacementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StudentPrimaryPlacementWhereInput
+}
+
+/**
+ * ClassSectionCountOutputType without action
+ */
+export type ClassSectionCountOutputTypeCountAssessmentAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentAssignmentWhereInput
 }
 
 
@@ -1277,6 +1410,7 @@ export type ClassSectionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   academicYear?: boolean | Prisma.AcademicYearDefaultArgs<ExtArgs>
   term?: boolean | Prisma.ClassSection$termArgs<ExtArgs>
   primaryPlacements?: boolean | Prisma.ClassSection$primaryPlacementsArgs<ExtArgs>
+  assessmentAssignments?: boolean | Prisma.ClassSection$assessmentAssignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassSectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["classSection"]>
 
@@ -1337,6 +1471,7 @@ export type ClassSectionInclude<ExtArgs extends runtime.Types.Extensions.Interna
   academicYear?: boolean | Prisma.AcademicYearDefaultArgs<ExtArgs>
   term?: boolean | Prisma.ClassSection$termArgs<ExtArgs>
   primaryPlacements?: boolean | Prisma.ClassSection$primaryPlacementsArgs<ExtArgs>
+  assessmentAssignments?: boolean | Prisma.ClassSection$assessmentAssignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.ClassSectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ClassSectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1360,6 +1495,7 @@ export type $ClassSectionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     academicYear: Prisma.$AcademicYearPayload<ExtArgs>
     term: Prisma.$TermPayload<ExtArgs> | null
     primaryPlacements: Prisma.$StudentPrimaryPlacementPayload<ExtArgs>[]
+    assessmentAssignments: Prisma.$AssessmentAssignmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1772,6 +1908,7 @@ export interface Prisma__ClassSectionClient<T, Null = never, ExtArgs extends run
   academicYear<T extends Prisma.AcademicYearDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AcademicYearDefaultArgs<ExtArgs>>): Prisma.Prisma__AcademicYearClient<runtime.Types.Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   term<T extends Prisma.ClassSection$termArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassSection$termArgs<ExtArgs>>): Prisma.Prisma__TermClient<runtime.Types.Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   primaryPlacements<T extends Prisma.ClassSection$primaryPlacementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassSection$primaryPlacementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentPrimaryPlacementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assessmentAssignments<T extends Prisma.ClassSection$assessmentAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClassSection$assessmentAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2253,6 +2390,30 @@ export type ClassSection$primaryPlacementsArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.StudentPrimaryPlacementScalarFieldEnum | Prisma.StudentPrimaryPlacementScalarFieldEnum[]
+}
+
+/**
+ * ClassSection.assessmentAssignments
+ */
+export type ClassSection$assessmentAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentAssignment
+   */
+  select?: Prisma.AssessmentAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentAssignment
+   */
+  omit?: Prisma.AssessmentAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentAssignmentInclude<ExtArgs> | null
+  where?: Prisma.AssessmentAssignmentWhereInput
+  orderBy?: Prisma.AssessmentAssignmentOrderByWithRelationInput | Prisma.AssessmentAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentAssignmentScalarFieldEnum | Prisma.AssessmentAssignmentScalarFieldEnum[]
 }
 
 /**

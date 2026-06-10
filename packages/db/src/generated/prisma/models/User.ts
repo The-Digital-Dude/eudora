@@ -301,6 +301,8 @@ export type UserWhereInput = {
   auditLogs?: Prisma.AuditLogListRelationFilter
   guardianProfile?: Prisma.XOR<Prisma.GuardianProfileNullableScalarRelationFilter, Prisma.GuardianProfileWhereInput> | null
   studentProfile?: Prisma.XOR<Prisma.StudentProfileNullableScalarRelationFilter, Prisma.StudentProfileWhereInput> | null
+  assignedAssessments?: Prisma.AssessmentAssignmentListRelationFilter
+  markedAttempts?: Prisma.AssessmentAttemptListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -324,6 +326,8 @@ export type UserOrderByWithRelationInput = {
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   guardianProfile?: Prisma.GuardianProfileOrderByWithRelationInput
   studentProfile?: Prisma.StudentProfileOrderByWithRelationInput
+  assignedAssessments?: Prisma.AssessmentAssignmentOrderByRelationAggregateInput
+  markedAttempts?: Prisma.AssessmentAttemptOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -350,6 +354,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   auditLogs?: Prisma.AuditLogListRelationFilter
   guardianProfile?: Prisma.XOR<Prisma.GuardianProfileNullableScalarRelationFilter, Prisma.GuardianProfileWhereInput> | null
   studentProfile?: Prisma.XOR<Prisma.StudentProfileNullableScalarRelationFilter, Prisma.StudentProfileWhereInput> | null
+  assignedAssessments?: Prisma.AssessmentAssignmentListRelationFilter
+  markedAttempts?: Prisma.AssessmentAttemptListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -417,6 +423,8 @@ export type UserCreateInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -440,6 +448,8 @@ export type UserUncheckedCreateInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileUncheckedCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserUpdateInput = {
@@ -463,6 +473,8 @@ export type UserUpdateInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -486,6 +498,8 @@ export type UserUncheckedUpdateInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUncheckedUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -714,6 +728,36 @@ export type UserUpdateOneWithoutStudentProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStudentProfileInput, Prisma.UserUpdateWithoutStudentProfileInput>, Prisma.UserUncheckedUpdateWithoutStudentProfileInput>
 }
 
+export type UserCreateNestedOneWithoutAssignedAssessmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedAssessmentsInput, Prisma.UserUncheckedCreateWithoutAssignedAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedAssessmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAssignedAssessmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedAssessmentsInput, Prisma.UserUncheckedCreateWithoutAssignedAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedAssessmentsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedAssessmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedAssessmentsInput, Prisma.UserUpdateWithoutAssignedAssessmentsInput>, Prisma.UserUncheckedUpdateWithoutAssignedAssessmentsInput>
+}
+
+export type UserCreateNestedOneWithoutMarkedAttemptsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMarkedAttemptsInput, Prisma.UserUncheckedCreateWithoutMarkedAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMarkedAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMarkedAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMarkedAttemptsInput, Prisma.UserUncheckedCreateWithoutMarkedAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMarkedAttemptsInput
+  upsert?: Prisma.UserUpsertWithoutMarkedAttemptsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMarkedAttemptsInput, Prisma.UserUpdateWithoutMarkedAttemptsInput>, Prisma.UserUncheckedUpdateWithoutMarkedAttemptsInput>
+}
+
 export type UserCreateWithoutRolesInput = {
   id?: string
   email: string
@@ -734,6 +778,8 @@ export type UserCreateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -756,6 +802,8 @@ export type UserUncheckedCreateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileUncheckedCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -794,6 +842,8 @@ export type UserUpdateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -816,6 +866,8 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUncheckedUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -838,6 +890,8 @@ export type UserCreateWithoutSessionsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -860,6 +914,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileUncheckedCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -898,6 +954,8 @@ export type UserUpdateWithoutSessionsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -920,6 +978,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUncheckedUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -942,6 +1002,8 @@ export type UserCreateWithoutAuditLogsInput = {
   sessions?: Prisma.AuthSessionCreateNestedManyWithoutUserInput
   guardianProfile?: Prisma.GuardianProfileCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -964,6 +1026,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   sessions?: Prisma.AuthSessionUncheckedCreateNestedManyWithoutUserInput
   guardianProfile?: Prisma.GuardianProfileUncheckedCreateNestedOneWithoutUserInput
   studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -1002,6 +1066,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   sessions?: Prisma.AuthSessionUpdateManyWithoutUserNestedInput
   guardianProfile?: Prisma.GuardianProfileUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -1024,6 +1090,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   sessions?: Prisma.AuthSessionUncheckedUpdateManyWithoutUserNestedInput
   guardianProfile?: Prisma.GuardianProfileUncheckedUpdateOneWithoutUserNestedInput
   studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserCreateWithoutGuardianProfileInput = {
@@ -1046,6 +1114,8 @@ export type UserCreateWithoutGuardianProfileInput = {
   sessions?: Prisma.AuthSessionCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserUncheckedCreateWithoutGuardianProfileInput = {
@@ -1068,6 +1138,8 @@ export type UserUncheckedCreateWithoutGuardianProfileInput = {
   sessions?: Prisma.AuthSessionUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserCreateOrConnectWithoutGuardianProfileInput = {
@@ -1106,6 +1178,8 @@ export type UserUpdateWithoutGuardianProfileInput = {
   sessions?: Prisma.AuthSessionUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuardianProfileInput = {
@@ -1128,6 +1202,8 @@ export type UserUncheckedUpdateWithoutGuardianProfileInput = {
   sessions?: Prisma.AuthSessionUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserCreateWithoutStudentProfileInput = {
@@ -1150,6 +1226,8 @@ export type UserCreateWithoutStudentProfileInput = {
   sessions?: Prisma.AuthSessionCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentProfileInput = {
@@ -1172,6 +1250,8 @@ export type UserUncheckedCreateWithoutStudentProfileInput = {
   sessions?: Prisma.AuthSessionUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   guardianProfile?: Prisma.GuardianProfileUncheckedCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutAssignedByUserInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutMarkedByUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentProfileInput = {
@@ -1210,6 +1290,8 @@ export type UserUpdateWithoutStudentProfileInput = {
   sessions?: Prisma.AuthSessionUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutMarkedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentProfileInput = {
@@ -1232,6 +1314,232 @@ export type UserUncheckedUpdateWithoutStudentProfileInput = {
   sessions?: Prisma.AuthSessionUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   guardianProfile?: Prisma.GuardianProfileUncheckedUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutAssignedByUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutMarkedByUserNestedInput
+}
+
+export type UserCreateWithoutAssignedAssessmentsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name?: string | null
+  status?: $Enums.AccountStatus
+  emailVerifiedAt?: Date | string | null
+  mustChangePassword?: boolean
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  activatedAt?: Date | string | null
+  activatedById?: string | null
+  rejectedAt?: Date | string | null
+  rejectedById?: string | null
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.AuthSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  guardianProfile?: Prisma.GuardianProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  markedAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutMarkedByUserInput
+}
+
+export type UserUncheckedCreateWithoutAssignedAssessmentsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name?: string | null
+  status?: $Enums.AccountStatus
+  emailVerifiedAt?: Date | string | null
+  mustChangePassword?: boolean
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  activatedAt?: Date | string | null
+  activatedById?: string | null
+  rejectedAt?: Date | string | null
+  rejectedById?: string | null
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.AuthSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  guardianProfile?: Prisma.GuardianProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutMarkedByUserInput
+}
+
+export type UserCreateOrConnectWithoutAssignedAssessmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedAssessmentsInput, Prisma.UserUncheckedCreateWithoutAssignedAssessmentsInput>
+}
+
+export type UserUpsertWithoutAssignedAssessmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedAssessmentsInput, Prisma.UserUncheckedUpdateWithoutAssignedAssessmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedAssessmentsInput, Prisma.UserUncheckedCreateWithoutAssignedAssessmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedAssessmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedAssessmentsInput, Prisma.UserUncheckedUpdateWithoutAssignedAssessmentsInput>
+}
+
+export type UserUpdateWithoutAssignedAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.AuthSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  guardianProfile?: Prisma.GuardianProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutMarkedByUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.AuthSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  guardianProfile?: Prisma.GuardianProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  markedAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutMarkedByUserNestedInput
+}
+
+export type UserCreateWithoutMarkedAttemptsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name?: string | null
+  status?: $Enums.AccountStatus
+  emailVerifiedAt?: Date | string | null
+  mustChangePassword?: boolean
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  activatedAt?: Date | string | null
+  activatedById?: string | null
+  rejectedAt?: Date | string | null
+  rejectedById?: string | null
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.AuthSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  guardianProfile?: Prisma.GuardianProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentCreateNestedManyWithoutAssignedByUserInput
+}
+
+export type UserUncheckedCreateWithoutMarkedAttemptsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name?: string | null
+  status?: $Enums.AccountStatus
+  emailVerifiedAt?: Date | string | null
+  mustChangePassword?: boolean
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  activatedAt?: Date | string | null
+  activatedById?: string | null
+  rejectedAt?: Date | string | null
+  rejectedById?: string | null
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.AuthSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  guardianProfile?: Prisma.GuardianProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedCreateNestedManyWithoutAssignedByUserInput
+}
+
+export type UserCreateOrConnectWithoutMarkedAttemptsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMarkedAttemptsInput, Prisma.UserUncheckedCreateWithoutMarkedAttemptsInput>
+}
+
+export type UserUpsertWithoutMarkedAttemptsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMarkedAttemptsInput, Prisma.UserUncheckedUpdateWithoutMarkedAttemptsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMarkedAttemptsInput, Prisma.UserUncheckedCreateWithoutMarkedAttemptsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMarkedAttemptsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMarkedAttemptsInput, Prisma.UserUncheckedUpdateWithoutMarkedAttemptsInput>
+}
+
+export type UserUpdateWithoutMarkedAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.AuthSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  guardianProfile?: Prisma.GuardianProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUpdateManyWithoutAssignedByUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMarkedAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.AuthSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  guardianProfile?: Prisma.GuardianProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  assignedAssessments?: Prisma.AssessmentAssignmentUncheckedUpdateManyWithoutAssignedByUserNestedInput
 }
 
 
@@ -1243,12 +1551,16 @@ export type UserCountOutputType = {
   roles: number
   sessions: number
   auditLogs: number
+  assignedAssessments: number
+  markedAttempts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roles?: boolean | UserCountOutputTypeCountRolesArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+  assignedAssessments?: boolean | UserCountOutputTypeCountAssignedAssessmentsArgs
+  markedAttempts?: boolean | UserCountOutputTypeCountMarkedAttemptsArgs
 }
 
 /**
@@ -1282,6 +1594,20 @@ export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentAssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMarkedAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentAttemptWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1304,6 +1630,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   guardianProfile?: boolean | Prisma.User$guardianProfileArgs<ExtArgs>
   studentProfile?: boolean | Prisma.User$studentProfileArgs<ExtArgs>
+  assignedAssessments?: boolean | Prisma.User$assignedAssessmentsArgs<ExtArgs>
+  markedAttempts?: boolean | Prisma.User$markedAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1368,6 +1696,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   guardianProfile?: boolean | Prisma.User$guardianProfileArgs<ExtArgs>
   studentProfile?: boolean | Prisma.User$studentProfileArgs<ExtArgs>
+  assignedAssessments?: boolean | Prisma.User$assignedAssessmentsArgs<ExtArgs>
+  markedAttempts?: boolean | Prisma.User$markedAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1381,6 +1711,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     guardianProfile: Prisma.$GuardianProfilePayload<ExtArgs> | null
     studentProfile: Prisma.$StudentProfilePayload<ExtArgs> | null
+    assignedAssessments: Prisma.$AssessmentAssignmentPayload<ExtArgs>[]
+    markedAttempts: Prisma.$AssessmentAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1797,6 +2129,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   guardianProfile<T extends Prisma.User$guardianProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guardianProfileArgs<ExtArgs>>): Prisma.Prisma__GuardianProfileClient<runtime.Types.Result.GetResult<Prisma.$GuardianProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   studentProfile<T extends Prisma.User$studentProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$studentProfileArgs<ExtArgs>>): Prisma.Prisma__StudentProfileClient<runtime.Types.Result.GetResult<Prisma.$StudentProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  assignedAssessments<T extends Prisma.User$assignedAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  markedAttempts<T extends Prisma.User$markedAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$markedAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2341,6 +2675,54 @@ export type User$studentProfileArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.StudentProfileInclude<ExtArgs> | null
   where?: Prisma.StudentProfileWhereInput
+}
+
+/**
+ * User.assignedAssessments
+ */
+export type User$assignedAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentAssignment
+   */
+  select?: Prisma.AssessmentAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentAssignment
+   */
+  omit?: Prisma.AssessmentAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentAssignmentInclude<ExtArgs> | null
+  where?: Prisma.AssessmentAssignmentWhereInput
+  orderBy?: Prisma.AssessmentAssignmentOrderByWithRelationInput | Prisma.AssessmentAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentAssignmentScalarFieldEnum | Prisma.AssessmentAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.markedAttempts
+ */
+export type User$markedAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentAttempt
+   */
+  select?: Prisma.AssessmentAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentAttempt
+   */
+  omit?: Prisma.AssessmentAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentAttemptInclude<ExtArgs> | null
+  where?: Prisma.AssessmentAttemptWhereInput
+  orderBy?: Prisma.AssessmentAttemptOrderByWithRelationInput | Prisma.AssessmentAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentAttemptScalarFieldEnum | Prisma.AssessmentAttemptScalarFieldEnum[]
 }
 
 /**
